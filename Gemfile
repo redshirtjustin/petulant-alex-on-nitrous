@@ -40,7 +40,9 @@ gem 'spring',        group: :development
 
 gem 'acts-as-taggable-on', '~> 3.4.3'
 
-gem "therubyracer"
-gem "less-rails" 
+gem 'faker'
+
+gem 'therubyracer'
+gem 'less-rails' 
 #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
