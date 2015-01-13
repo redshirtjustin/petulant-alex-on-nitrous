@@ -1,0 +1,25 @@
+<div class="page-header text-center">
+  <div><%= image_tag @news.mast_url, class: "pa-img-masthead img-responsive" %></div>
+  <div class="pa-page-header-headline"><%= @news.headlines.find(@news.active_headline_id).headline %></div>
+  <span class="pa-page-header-section-line"><%= @news.section.title %> - <%= time_ago_in_words(@news.updated_at)%> ago</span>
+</div>
+
+<div class="pa-elements-container">
+  <div class="pa-content">
+    <p><%= @news.leadlines.find(@news.active_leadline_id).leadline %></p></div>
+  <hr>
+  <%= render partial: "element", collection: @news.story_elements, as: :element %>
+</div>
+
+<div class="pa-sources-container">
+  <div class="pa-source-title text-center text-muted">Sources</div>
+  <%= render partial: "source", collection: @news_sources, as: :source %>
+  <hr>
+</div>
+
+<div class="pa-similar-stories-container">
+  <div class="pa-similar-stories-title text-center text-muted">Related Stories</div>
+   <div class="row">
+     <%= render partial: "similar_story", collection: @news.similar_stories, as: :story %>
+   </div>
+</div>

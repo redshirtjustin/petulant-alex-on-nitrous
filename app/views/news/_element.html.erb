@@ -1,0 +1,15 @@
+<div>
+  <% element_id = element.element_id %>
+  <% if (element.element_type == "Atom") %>
+  <% ele = Atom.find(element_id) %>
+    <p class="pa-content"><%= ele.content %></p>
+  <% elsif (element.element_type == "Quote") %>
+  <% ele = Quote.find(element_id) %>
+    <blockquote>
+      <p class="pa-content-text"><%= ele.quote %></p>
+      <small><%= ele.quoted_line %></small>
+    </blockquote>
+    <p class="pa-content"><%= ele.content %></p>
+  <% end %>
+  <hr>
+</div>

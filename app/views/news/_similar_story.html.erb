@@ -1,0 +1,12 @@
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <%= image_tag "blank300x200.png" %>
+      <div class="caption">
+        <%= link_to( controller: "news", action: "show",  id: story.id) do %>
+      <p class="pa-similiar-story-text"><strong><%= story.headlines.find(story.active_headline_id).headline %></strong></p>
+        <% end %> 
+      <p class="pa-similiar-story-text muted"><%= time_ago_in_words(story.updated_at) %></p>
+        
+      </div>
+    </div>
+  </div>

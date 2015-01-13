@@ -27,3 +27,83 @@
 //
 // Example:
 // @link-color: #ff0000;
+
+// Bootstrap Variable Overrides
+
+@font-size-base: 18px;
+@blockquote-font-size: (@font-size-base * 1.1);
+
+body { 
+  padding-top: 40px; // needed to move content below nav-bar
+}
+
+// Project Alex CSS
+
+// Masthead CSS
+.pa-img-masthead { 
+  width: 600px;
+  .center-block();
+}
+
+.pa-page-header-section-line {
+  font-family: @font-family-sans-serif;
+  font-size: ceil((@font-size-base * 0.80));
+  padding: 20px;
+}
+
+.pa-page-header-headline {
+  font-family: @font-family-serif;
+  font-size: ceil((@font-size-base * 1.15));
+  font-weight: bold;
+  padding: 20px;
+}
+
+// Elements CSS
+.pa-elements-container {
+  .center-block();
+}
+
+.pa-content {
+  font-size: ceil((@font-size-base * 1.10));
+  line-height: floor((@font-size-base * 1.6));
+  font-family: @font-family-serif;
+}
+
+.pa-content-text {
+  font-family: @font-family-serif;
+}
+
+// Sources CSS
+.pa-sources-container {
+  width: 85%;
+  font-family: @font-family-sans-serif;
+  .center-block();
+  
+  p {
+    padding: 0px;
+    margin: 0px;
+    .text-overflow();
+  }
+}
+
+.pa-source-title {
+  font-size: ceil((@font-size-base * 0.80));
+  margin: 10px;
+}
+
+// Simliar Stories CSS
+.pa-similar-stories-container {
+  width: 85%;
+  font-family: @font-family-sans-serif;
+  .center-block();
+}
+
+.pa-similar-stories-title {
+  font-size: ceil((@font-size-base * 0.8));
+  margin: 10px;
+}
+
+.pa-similiar-story-text {
+  font-size: ceil((@font-size-base * 0.8));
+}
+

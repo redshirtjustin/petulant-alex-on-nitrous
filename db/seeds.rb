@@ -92,33 +92,40 @@ end
     headline = Headline.create(headline: Faker::Lorem.sentence(10), story_id: s)
     if hl == rand_num_headlines
       story = Story.find(s)
-      story.active_headline_id = hl
+      story.active_headline_id = headline.id
       story.save
     end
   end
-
+  # Leadline seeding
   1.upto(rand_num_leadlines) do |ll|
     leadline = Leadline.create(leadline: Faker::Lorem.sentence(10), story_id: s)
     if ll = rand_num_leadlines
       story = Story.find(s)
-      story.active_leadline_id = ll
+      story.active_leadline_id = leadline.id
       story.save
     end
   end
 end
 
-# seed citations
+# seed CITATIONS for ATOMS
 1.upto(total_atoms) do |atom|
   rand_num_citations = SecureRandom.random_number(3) + 1
   1.upto(rand_num_citations) do |cit|
     citation = Citation.create(cite_id: atom, cite_type: "Atom", title: Faker::Lorem::sentence(10), url: Faker::Internet::url)
   end
 end
-
+# seed CITATIONS for QUOTES
 1.upto(total_quotes) do |quote|
   rand_num_citations = SecureRandom.random_number(3) + 1
   1.upto(rand_num_citations) do |cit|
     citation = Citation.create(cite_id: quote, cite_type: "Quote", title: Faker::Lorem::sentence(10), url: Faker::Internet::url)
+  end
+end
 
+1.upto(total_stories) do |story|
+  rand_num_connections = SecureRandom.random_number(3) + 1
+  1.upto(rand_num_connections) do |connect|
+    random_story_id = SecureRandom.random_number(total_stories) + 1
+    similar = SimilarStory.create(story_id: story, similar_story_id: random_story_id)
   end
 end
