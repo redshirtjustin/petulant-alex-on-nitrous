@@ -1,10 +1,16 @@
 <div>
   <% element_id = element.element_id %>
   <% if (element.element_type == "Atom") %>
-  <% ele = Atom.find(element_id) %>
+    <% ele = Atom.find(element_id) %>
     <p class="pa-content"><%= ele.content %></p>
+  <% if (!element.related_elements.empty?) %>
+  <% element.related_elements.each do |rel_news_story| %>
+  <div class="pa-source-title">
+    <p>Learn More: <%= link_to rel_news_story.story.headlines.find(rel_news_story.story.active_headline_id).headline, controller: "news", action: "show", id: rel_news_story.story_id  %></p>
+  </div>
+  <% end %><% end %>
   <% elsif (element.element_type == "Quote") %>
-  <% ele = Quote.find(element_id) %>
+    <% ele = Quote.find(element_id) %>
     <blockquote>
       <p class="pa-content-text"><%= ele.quote %></p>
       <small><%= ele.quoted_line %></small>
