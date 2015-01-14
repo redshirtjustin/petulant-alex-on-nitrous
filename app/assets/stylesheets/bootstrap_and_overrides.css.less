@@ -73,6 +73,10 @@ body {
   font-family: @font-family-serif;
 }
 
+.pa-not-content-text {
+  font-family: @font-family-sans-serif;
+}
+
 // Sources CSS
 .pa-sources-container {
   width: 85%;
@@ -105,5 +109,25 @@ body {
 
 .pa-similiar-story-text {
   font-size: ceil((@font-size-base * 0.8));
+}
+
+// Latest Newslines
+.pa-latest-news-container {
+  .center-block();
+  font-family: @font-family-serif;
+}
+
+.pa-latest-news-section {
+  .center-block();
+}
+
+.pa-latest-news-newsline {
+  font-size: ceil((@font-size-base * 0.9));
+  margin: 10px;
+  p {
+    padding: 0px;
+    margin: 0px;
+    .text-overflow();
+  }
 }
 

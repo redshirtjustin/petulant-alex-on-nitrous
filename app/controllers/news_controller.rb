@@ -4,7 +4,16 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = Story.all
+    # Create some instance variables to display
+    @latest_news_by_sections = {} # Will hold object relations type of each section
+
+    latest = 15 # Display this many stories under each section
+    all_sections = Section.all # What sections do we want to look at? All sections.
+
+    # Logic for the index view
+    all_sections.each do |s|
+      @latest_news_by_sections[s.title] = s.stories.order('updated_at DESC').limit(latest)
+    end
   end
 
   # GET /news/1

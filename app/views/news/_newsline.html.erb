@@ -1,0 +1,5 @@
+<div class="pa-latest-news-newsline">
+  <p><small><span class="label label-info pa-not-content-text"><%= "#{time_ago_in_words(newsline.created_at)} old" %></span></small>
+    <%= link_to( newsline.headlines.find(newsline.active_headline_id).headline, controller: "news", action: "show", id: newsline.id ) %>
+  </p>
+</div>
