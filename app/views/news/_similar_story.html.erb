@@ -5,7 +5,7 @@
         <%= link_to( controller: "news", action: "show",  id: story.id) do %>
       <p class="pa-similiar-story-text"><strong><%= story.headlines.find(story.active_headline_id).headline %></strong></p>
         <% end %> 
-      <p class="pa-similiar-story-text text-muted"><small><%= time_ago_in_words(story.updated_at) %> old</small></p>
+      <span class="pa-similiar-story-text text-muted"><small><%= time_ago_in_words(story.updated_at) %> old</small></span>
         
       </div>
     </div>

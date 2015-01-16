@@ -11,15 +11,15 @@
   <%= render partial: "element", collection: @news.story_elements, as: :element %>
 </div>
 
-<div class="pa-sources-container">
-  <div class="pa-source-title text-center text-muted">Sources</div>
-  <%= render partial: "source", collection: @news_sources, as: :source %>
-  <hr>
-</div>
-
 <div class="pa-similar-stories-container">
   <div class="pa-similar-stories-title text-center text-muted">Related Stories</div>
    <div class="row">
      <%= render partial: "similar_story", collection: @news.similar_stories, as: :story %>
    </div>
+</div>
+
+<div class="pa-sources-container">
+  <div class="pa-source-title text-center text-muted">Sources</div>
+  <%= render partial: "source", collection: @news_sources, as: :source %>
+  <hr>
 </div>
