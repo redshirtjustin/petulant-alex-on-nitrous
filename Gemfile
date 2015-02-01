@@ -39,6 +39,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'acts-as-taggable-on', '~> 3.4.3'
+gem 'textext-rails', '~> 0.2.0'
 
 gem 'faker'
 

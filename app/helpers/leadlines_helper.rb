@@ -1,0 +1,2 @@
+module LeadlinesHelper
+end

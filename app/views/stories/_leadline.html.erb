@@ -1,0 +1,25 @@
+<% if @story.active_leadline_id != leadline.id %>
+<li class="list-group-item"><%= leadline.leadline %>
+  <% ll_collapse_name = 'leadlineEditForm_' + leadline.id.to_s %>
+  <% ll_collapse_name_a = '#leadlineEditForm_' + leadline.id.to_s %>
+
+  <p><%= tag('div', class: 'collapse', id: ll_collapse_name, open: :true) %>
+          <div class="well well-sm">
+            <%= form_tag(leadlines_url(leadline.id), method: 'patch') do %>
+            <%= hidden_field_tag('story_id', @story.id) %>
+             <div class="form-group" role="group">
+            <%= text_area_tag(:leadline, leadline.leadline , rows: 4, class: 'form-control input-sm') %></div>
+             <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <%= link_to('Close', ll_collapse_name_a, class: 'btn btn-default', role: 'button', data: {toggle: 'collapse'}, aria_expanded: false, aria_control: ll_collapse_name) %>
+            <%= submit_tag('Save', class: 'btn btn-primary', data: { disable_with: 'Saving...' }) %></div>
+            <% end %>  
+          </div>
+        </div></p> <!-- Collapse -->
+
+    <p><div class="btn-group btn-group-xs" role="group" aria-label="...">
+<%= link_to( ll_collapse_name_a, class: 'btn btn-default', role: 'button', data: {toggle: 'collapse'}, aria_expanded: false, aria_control: ll_collapse_name) do %><i class="fa fa-pencil-square-o"></i> Edit<% end %>
+      <button type="button" class="btn btn-default"><i class="fa fa-star"></i> Make Active</button>
+      <button type="button" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+    </div></p>
+</li>
+<% end %>

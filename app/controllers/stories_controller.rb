@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
+  layout "authoring"
 
   # GET /stories
   # GET /stories.json
@@ -15,19 +16,40 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     @story = Story.new
+    @sections = Section.all
   end
 
   # GET /stories/1/edit
   def edit
+    @story_content = @story.all_elements
+    @sections = Section.all
   end
 
   # POST /stories
   # POST /stories.json
   def create
-    @story = Story.new(story_params)
-
+    @story = Story.new()
+    @story.section_id = params[:story][:section]
+    @story.subject = params[:subject]
+    # @story.mast_url = ""
+    # @story.thumb_url = ""
+    
+    if !params[:theme_tags].empty?
+        input = params[:theme_tags]
+        input = input.gsub('"', '')
+        input.slice!(0)
+        input = input.chop
+      @story.theme_list.add(input, parse: true)
+    end
+      
     respond_to do |format|
       if @story.save
+        hl = @story.headlines.create(headline: params[:headline], story_id: @story.id)
+        ll = @story.leadlines.create(leadline: params[:leadline], story_id: @story.id)
+        @story.active_headline_id = hl.id
+        @story.active_leadline_id = ll.id
+        @story.save
+        # Need to add theme tags       
         format.html { redirect_to @story, notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
       else
@@ -40,13 +62,15 @@ class StoriesController < ApplicationController
   # PATCH/PUT /stories/1
   # PATCH/PUT /stories/1.json
   def update
+    @story.subject = params[:storyEditSubject]
+    @story.section_id = story_params[:section_id]
+    @story.theme_list = params[:storyEditTags]
+    
     respond_to do |format|
-      if @story.update(story_params)
-        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
-        format.json { render :show, status: :ok, location: @story }
+      if @story.save
+        format.html { redirect_to edit_story_url(@story), notice: 'Story was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +93,6 @@ class StoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def story_params
-      params[:story]
+      params[:story].permit(:subject, :mast_url, :thumb_url, :headline, :leadline, :section_id, :storyEditSubject)
     end
 end

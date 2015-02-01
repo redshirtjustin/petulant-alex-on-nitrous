@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <p><h3 class="panel-title">Filed under: <mark><%= @story.filed_under %></mark></h3></p>
+    <p>Tagged: <span class="text-info"><%= @story.theme_list %></span></p>
+  </div>
+  
+  <div class="panel-body">
+    <div class="center-block text-center"><p class="h2"><%= @story.subject %></p>
+      <p class="small">Created: <mark><%= time_ago_in_words(@story.created_at) %> ago</mark> | Updated: <mark><%= time_ago_in_words(@story.updated_at) %> ago</mark></p>
+      
+    <p><div class="collapse" id="storyEditForm">
+      <%= form_tag(story_url(@story), method: 'patch') do %>
+        <div class="well well-sm form-horizontal">
+          
+            <div class="form-group"> 
+                <label for="storyEditSubject" class="control-label col-sm-2">Subject:</label>
+                <div class="col-sm-10"><%= text_field_tag('storyEditSubject', @story.subject, {class: 'form-control input-sm'}) %>
+              </div>
+            </div><!-- Subject field -->
+          
+            <div class="form-group"> 
+                <label for="storyEditSection" class="control-label col-sm-2">Filed under section:</label>
+                <div class="col-sm-10">
+                  <%= collection_select(:story, :section_id, @sections, :id, :title, {prompt: false}, {class: 'form-control input-sm'}) %>
+                </div>
+            </div><!-- Section field -->
+          
+            <div class="form-group"> 
+                <label for="storyEditTags" class="control-label col-sm-2">Theme tags:</label>
+                <div class="col-sm-10">
+                  <%= text_area_tag('storyEditTags', @story.theme_list, class: 'form-control input-sm') %>
+                  <p class="help-block small pull-left">Comma separate tags.</p>
+                </div>
+            </div><!-- Tags field -->
+          
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                <%= link_to('Close', '#storyEditForm', class: 'btn btn-default', role: 'button', data: {toggle: 'collapse'}, aria_expanded: false, aria_control: 'activeHeadlineEditForm') %>
+                <%= submit_tag('Save', class: 'btn btn-primary', data: { disable_with: 'Saving...' }) %></div>
+              </div>
+          </div>
+        </div><!-- well -->
+          <% end %>      
+      </div></p> <!-- Collapse -->
+    
+      <p><div class="btn-group btn-group-xs" role="group" aria-label="..."><button type="button" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#storyEditForm"><i class="fa fa-pencil-square-o"></i> Edit</button></div></p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+</script>

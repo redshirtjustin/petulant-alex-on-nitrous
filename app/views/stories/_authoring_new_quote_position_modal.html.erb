@@ -1,0 +1,98 @@
+<div class="modal fade" id="quoteNewModal" tabindex="-1" role="dialog" aria-labelledby="quoteNewModal" aria-hidden="true" aria-describedby="" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title h4">Create a new quote position.</span>
+        <button type="button" class="close pull-right" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form action="" method="">
+        
+        <div class="modal-body">
+        <div class="row">       
+          
+          <div class="col-xs-6">
+             <div class="form-group">
+               <label for="quoteTopic">Topic:</label>
+               <input type="text" id="quoteTopic" name="quoteTopic" class="form-control input-sm">
+             </div>
+            
+             <div class="form-group">
+               <label for="quoteQuote">Quote:</label>
+               <textarea class="form-control input-sm" id="quoteQuote" rows=7 ></textarea>
+             </div> 
+            
+             <div class="form-group">
+               <label for="quoteQuoted">Quoted:</label>
+               <input type="text" class="form-control input-sm" id="quoteQuoted">
+             </div>
+             
+             <div class="form-group">
+               <label for="quoteQuotedSubline">Quoted Title and/or Organization:</label>
+               <input type="text" class="form-control input-sm" id="quoteQuotedSubline">
+             </div>
+
+          </div><!-- col-xs-6 -->
+          
+          <div class="col-xs-6">            
+            <div class="form-group">
+              <label for="quoteContent">Content:</label>
+              <textarea class="form-control input-sm" id="quoteContent" rows=7 ></textarea><div id="quoteContentCharNum" class="text-muted small">0 characters</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="quoteThemeTags">Theme Tags:</label>
+              <textarea class="form-control input-sm" id="quoteThemeTags" rows=2></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="quoteContextTags">Context Tags:</label>
+              <textarea class="form-control input-sm" id="quoteContextTags" rows=2></textarea><p class="help-block">Tags are seperated by a return.</p>
+            </div>
+            
+          </div><!-- col-xs-6 -->
+          
+          </div>
+        </div><!-- modal body -->
+        
+        <div class="modal-footer">
+          <div class="form-group">
+           <button type="button" class="btn btn-warning pull-left" onclick="resetTextArea('quoteContent', 'quoteContentCharNum')">Reset form</button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div> <!-- modal footer -->
+        
+      </form> <!-- form -->
+      
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal wrapper -->
+
+
+<script>
+  // contentContent textarea character counting script
+  $('#quoteContent').keyup(function (){
+    var len = $(this).val().length;    
+    if (len == 1) {
+      $('#quoteContentCharNum').text(len + ' character');
+    } else {
+      $('#quoteContentCharNum').text(len + ' characters');
+    }
+    
+  })
+  
+  function resetTextArea (element, displayElement){
+    var elementExists = document.getElementById(element);
+    var displayElementExists = document.getElementById(displayElement);
+    
+    if (elementExists != null) {
+      document.getElementById(element).value = '';
+    }
+    if (displayElementExists != null) {
+      document.getElementById(displayElement).innerHTML = "0 characters"
+    }
+  }  
+  
+// $('#theme_tags').textext({ plugins : 'tags' });
+// $('#context_tags').textext({ plugins : 'tags' });
+</script>

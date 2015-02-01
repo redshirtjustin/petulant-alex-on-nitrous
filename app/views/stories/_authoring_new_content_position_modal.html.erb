@@ -1,0 +1,85 @@
+<!-- A modal to be activated by a button, via data attributes -->
+<div class="modal fade" id="contentNewModal" tabindex="-1" role="dialog" aria-labelledby="contentNewModal" aria-hidden="true" aria-describedby="" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title h4">Create a new content postion.</span>
+        <button type="button" class="close pull-right" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+      </div><!-- modal-header -->
+      
+      <form action="" method=""><!-- Form Encapsulates body and footer -->
+        
+        <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            
+            <div class="form-group">
+                <label for="contentTopic" class="control-label">Topic:</label>
+                <input class="form-control input-sm" type="text" name="contentTopic" id="contentTopic">
+            </div>
+            
+            <div class="form-group">
+                <label for="contentContent" class="control-label">Content:</label>
+                <textarea class="form-control input-sm" name="contentContent" id="contentContent" rows=7></textarea>
+                <div id="contentContentCharNum" class="text-muted small">0 characters</div>
+            </div>
+           
+            <div class="form-group"> <!-- Theme Tags Field -->
+              <label for="contentThemeTags" class="control-label">Theme Tags:</label>
+              <textarea class="form-control" name="contentThemeTags" id="contentThemeTags" rows=2></textarea>
+              <p class="help-block small">Press enter after each tag.</p>
+            </div>
+              
+            <div class="form-group"> <!-- Theme Tags Field -->
+              <label for="contentContextTags" class="control-label">Context Tags:</label>
+              <textarea class="form-control" name="contentContextTags" id="contentContextTags" rows=2></textarea>
+              <p class="help-block small">Press enter after each tag.</p>
+            </div>          
+              
+            </div><!-- col-xs-12 -->
+          </div><!-- row -->
+        </div><!-- modal body -->
+        
+        <div class="modal-footer">
+          <div class="form-group">
+            <button type="button" class="btn btn-warning pull-left" onclick="resetTextArea('contentContent', 'contentContentCharNum')">Reset form</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div> <!-- modal footer -->
+        
+      </form> <!-- form -->
+      
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal wrapper -->
+
+<script>
+  // contentContent textarea character counting script
+  $('#contentContent').keyup(function (){
+    var len = $(this).val().length;
+    
+    if (len == 1) {
+      $('#contentContentCharNum').text(len + ' character');
+    } else {
+      $('#contentContentCharNum').text(len + ' characters');
+    }
+    
+  })
+  
+  function resetTextArea (element, displayElement){
+    var elementExists = document.getElementById(element);
+    var displayElementExists = document.getElementById(displayElement);
+    
+    if (elementExists != null) {
+      document.getElementById(element).value = '';
+    }
+    if (displayElementExists != null) {
+      document.getElementById(displayElement).innerHTML = "0 characters"
+    }
+  }  
+   
+
+// $('#theme_tags').textext({ plugins : 'tags' });
+// $('#context_tags').textext({ plugins : 'tags' });
+</script>

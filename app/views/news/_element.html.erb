@@ -1,21 +1,25 @@
 <div>
-  <% element_id = element.element_id %>
-  <% if (element.element_type == "Atom") %>
-    <% ele = Atom.find(element_id) %>
-    <p class="pa-content"><%= ele.content %></p>
-  <% if (!element.related_elements.empty?) %>
-  <% element.related_elements.each do |rel_news_story| %>
-  <div class="pa-source-title">
-    <p>Learn More: <%= link_to rel_news_story.story.headlines.find(rel_news_story.story.active_headline_id).headline, controller: "news", action: "show", id: rel_news_story.story_id  %></p>
-  </div>
-  <% end %><% end %>
-  <% elsif (element.element_type == "Quote") %>
-    <% ele = Quote.find(element_id) %>
-    <blockquote>
-      <p class="pa-content-text"><%= ele.quote %></p>
-      <small><%= ele.quoted_line %></small>
-    </blockquote>
-    <p class="pa-content"><%= ele.content %></p>
-  <% end %>
+  <% if position.active %>
+  <% @news_content.each do |element| %>
+    <% if (position.element_id == element.id) and (position.element_type == element.class.to_s) %>
+      <% if element.class.to_s == "Quote" %>
+          <blockquote>
+            <p class="pa-content-text"><%= element.quote %></p>
+            <small><%= element.quoted_line %></small>
+          </blockquote>
+      <% end %> <!-- quote rendering -->
+  
+       <p class="pa-content"><%= element.content %></p>
+  
+     <% if (!position.related_elements.empty?) %>
+     <% position.related_elements.each do |rel_news| %>
+        <div class="pa-source-title"><p>Learn More: <%= link_to rel_news.story.headlines.find(rel_news.story.active_headline_id).headline, controller: "news", action: "show", id: rel_news.story_id  %></p></div>
+     <% end %>
+     <% end %> <!-- position related news -->
+    <% end %> <!-- right element? -->
+  <% end %> <!-- iteration -->
+  <% end %> <!-- active -->
   <hr>
 </div>
+
+  

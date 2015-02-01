@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require textext.core
+//= require textext.plugin.tags
 //= require turbolinks
 //= require_tree .

@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h3 class="panel-title">Content & Positions<span class="badge pull-right"><%= @story.story_elements.count %></span></h3>
+
+    <p><div class="btn-group" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-plus"></i> New Position <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#" role="button" data-toggle="modal" data-target="#quoteNewModal"><i class="fa fa-quote-left"></i> New Quote</a></li>
+          <li><a href="#" role="button" data-toggle="modal" data-target="#contentNewModal"><i class="fa fa-font"></i> New Content</a></li>
+          <li><a href="#"><i class="fa fa-link"></i> Insert Existing Content</a></li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-bars"></i> Reorder Positions</button>
+    </div></p>  
+
+  <ul class="list-group">
+    <%= render partial: "sm_element", collection: @story.story_elements, as: :position %>
+  </ul>
+  <div class="panel-footer">footer</div>
+</div> <!-- elements end -->

@@ -22,6 +22,7 @@
     </div>
     <%= error_span(@story[:subject]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :mast_url, :class => 'control-label' %>
     <div class="controls">
@@ -29,6 +30,7 @@
     </div>
     <%= error_span(@story[:mast_url]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :thumb_url, :class => 'control-label' %>
     <div class="controls">
@@ -36,24 +38,27 @@
     </div>
     <%= error_span(@story[:thumb_url]) %>
   </div>
+
   <div class="control-group">
-    <%= f.label :active_headline_id, :class => 'control-label' %>
+    <%= f.label :headline, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :active_headline_id, :class => 'form-control' %>
+      <%= f.text_field :headline, :class => 'form-control' %>
     </div>
-    <%= error_span(@story[:active_headline_id]) %>
+    <%= error_span(@story[:headline]) %>
   </div>
+
   <div class="control-group">
-    <%= f.label :active_leadline_id, :class => 'control-label' %>
+    <%= f.label :leadline, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :active_leadline_id, :class => 'form-control' %>
+      <%= f.text_field :leadline, :class => 'form-control' %>
     </div>
-    <%= error_span(@story[:active_leadline_id]) %>
+    <%= error_span(@story[:leadline]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :section_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :section_id, :class => 'form-control' %>
+      <%= f.collection_select :section, Section.all, :id, :title, :class => 'form-control' %>
     </div>
     <%= error_span(@story[:section_id]) %>
   </div>

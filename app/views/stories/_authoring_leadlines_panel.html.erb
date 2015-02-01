@@ -1,0 +1,27 @@
+<div class="panel panel-default"> <!-- Leadlines Panel -->
+  <div class="panel-heading"><h3 class="panel-title">Leadlines<span class="badge pull-right"><%= @story.leadlines.count %></span></h3></div> 
+  <ul class="list-group">
+    <li class="list-group-item active"><%= @story.active_leadline %>
+      
+       <p><div class="collapse" id="activeLeadlineEditForm">
+        <div class="well well-sm">
+          <%= form_tag(leadlines_url(@story.active_leadline_id), method: 'patch') do %>
+          <%= hidden_field_tag('story_id', @story.id) %>
+          <div class="form-group" role="group">
+            <%= text_area_tag(:leadline, @story.active_leadline, rows: 4, class: 'form-control input-sm') %></div>
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <%= link_to('Close', '#activeLeadlineEditForm', class: 'btn btn-default', role: 'button', data: {toggle: 'collapse'}, aria_expanded: false, aria_control: 'activeLeadlineEditForm') %>
+            <%= submit_tag('Save', class: 'btn btn-primary', data: { disable_with: 'Saving...' }) %></div>
+        <% end %>  
+        </div>
+      </div></p> <!-- Collapse -->
+      
+    <p><div class="btn-group btn-group-xs" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#activeLeadlineEditForm"><i class="fa fa-pencil-square-o"></i> Edit</button>
+      <button type="button" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+      </div></p>
+    </li>
+    <%= render partial: "leadline", collection: @story.leadlines, as: :leadline %>
+  </ul>
+  <div class="panel-footer"><button type="button" class="btn btn-primary btn-xs">New Leadline</button></div>
+</div> <!-- leadlines end -->

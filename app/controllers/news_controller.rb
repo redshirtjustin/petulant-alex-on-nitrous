@@ -1,8 +1,7 @@
 class NewsController < ApplicationController
-  before_action :set_news, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_news, only: [:show]
+  
   # GET /news
-  # GET /news.json
   def index
     # Create some instance variables to display
     @latest_news_by_sections = {} # Will hold object relations type of each section
@@ -14,19 +13,16 @@ class NewsController < ApplicationController
     all_sections.each do |s|
       @latest_news_by_sections[s.title] = s.stories.order('updated_at DESC').limit(latest)
     end
+    
+    render layout: "application"
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
-    @news_sources = []
-    @news.story_elements.order('position DESC').each do |ele|
-      if (ele.element_type == "Atom")
-        @news_sources << Citation.where("cite_id = :cite_id and cite_type = :cite_type", { cite_id: ele.element_id, cite_type: 'Atom' } ).to_a
-      elsif (ele.element_type == "Quote")
-        @news_sources << Citation.where("cite_id = :cite_id and cite_type = :cite_type", { cite_id: ele.element_id, cite_type: 'Quote' } ).to_a
-      end
-    end
+    @news_positions = @news.story_elements.order("position ASC")
+    @news_sources = @news.all_citations
+    @news_content = @news.all_elements
   end
 
   private

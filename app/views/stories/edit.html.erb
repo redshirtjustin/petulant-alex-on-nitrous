@@ -1,5 +1,22 @@
-<%- model_class = Story -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
-</div>
-<%= render :partial => 'form' %>
+<% content_for :main do %>
+<%= render partial: "authoring_main_panel" %>
+<% end %>
+
+<% content_for :headlines do %>
+<%= render partial: "authoring_headlines_panel" %>
+<% end %>
+
+<% content_for :leadlines do %>
+<%= render partial: "authoring_leadlines_panel" %>
+<% end %>
+
+<% content_for :elements do %><!-- Story Elements & Positions Panel-->
+<%= render partial: "authoring_elements_panel" %>
+<%= render partial: "authoring_content_modal" %>
+<%= render partial: "authoring_quote_modal" %>
+<%= render partial: "authoring_new_quote_position_modal" %>
+<%= render partial: "authoring_new_content_position_modal" %>
+<% end %>
+
+
+

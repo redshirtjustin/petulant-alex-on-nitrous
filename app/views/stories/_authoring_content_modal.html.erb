@@ -1,0 +1,105 @@
+<!-- A modal to be activated by a button, via data attributes -->
+<div class="modal fade" id="contentEditModal" tabindex="-1" role="dialog" aria-labelledby="contentEditModal" aria-hidden="true" aria-describedby="" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title h4"><small>Topic: </small><span id="modalTopicTitle"></span></span>
+        <button type="button" class="close pull-right" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+      </div><!-- modal-header -->
+      
+      <form action="" method=""><!-- Form Encapsulates body and footer -->
+        
+        <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-5"><p class="pa-content"><span id="elementContent"></span></p></div><!-- col-xs-5 -->
+          <div class="col-xs-7">
+            
+            <div class="form-group">
+                <label for="contentEditTopic" class="control-label">Topic:</label>
+                <input class="form-control input-sm" type="text" name="contentEditTopic" id="contentEditTopic">
+            </div>
+            
+            <div class="form-group">
+                <label for="contentEditContent" class="control-label">Content:</label>
+                <textarea class="form-control input-sm" name="contentEditContent" id="contentEditContent" rows=7></textarea>
+                <div id="contentEditContentCharNum" class="text-muted small">0 characters</div>
+            </div>
+           
+            <div class="form-group"> <!-- Theme Tags Field -->
+              <label for="contentEditThemeTags" class="control-label">Theme Tags:</label>
+              <textarea class="form-control" name="contentEditThemeTags" id="contentEditThemeTags" rows=2></textarea>
+              <p class="help-block small">Press enter after each tag.</p>
+            </div>
+              
+            <div class="form-group"> <!-- Theme Tags Field -->
+              <label for="contentEditContextTags" class="control-label">Context Tags:</label>
+              <textarea class="form-control" name="contentEditContextTags" id="contentEditContextTags" rows=2></textarea>
+              <p class="help-block small">Press enter after each tag.</p>
+            </div>          
+              
+            </div><!-- col-xs-7 -->
+          </div><!-- row -->
+        </div><!-- modal body -->
+        
+        <div class="modal-footer">
+          <div class="form-group">
+            <button type="button" class="btn btn-warning pull-left" onclick="resetTextArea('contentEditContent', 'contentEditContentCharNum')">Reset form</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div> <!-- modal footer -->
+        
+      </form> <!-- form -->
+      
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal wrapper -->
+
+<script>
+  // contentEditContent textarea character counting script
+  $('#contentEditContent').keyup(function (){
+    var len = $(this).val().length;
+    
+    if (len == 1) {
+      $('#contentEditContentCharNum').text(len + ' character');
+    } else {
+      $('#contentEditContentCharNum').text(len + ' characters');
+    }
+    
+  })
+  
+  function resetTextArea (element, displayElement){
+    var elementExists = document.getElementById(element);
+    var displayElementExists = document.getElementById(displayElement);
+    
+    if (elementExists != null) {
+      document.getElementById(element).value = '';
+    }
+    if (displayElementExists != null) {
+      document.getElementById(displayElement).innerHTML = "0 characters"
+    }
+  }  
+  
+  
+// Modal scripts
+$('#contentEditModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var topic = button.data('topic') // Extract info from data-* attributes
+      var content = button.data('content')
+      var theme_tags = button.data('theme-tags')
+      var context_tags = button.data('context-tags')
+
+      var modal = $(this)
+      modal.find('#contentEditTopic').val(topic)
+      modal.find('#contentEditContent').val(content)
+      var content_len = $('#contentEditContent').val().length
+      modal.find('#contentEditContentCharNum').text(content_len + " characters")
+      
+      modal.find('#modalTopicTitle').text(topic)
+      modal.find('#elementContent').text(content)
+    })
+  
+
+// $('#theme_tags').textext({ plugins : 'tags' });
+// $('#context_tags').textext({ plugins : 'tags' });
+</script>

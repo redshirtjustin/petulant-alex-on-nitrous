@@ -1,0 +1,48 @@
+<%= form_tag('/stories', method: :post, class: 'form-horizontal') do %>
+
+<div class="control-group"> <!-- Section Field -->
+  <%= label_tag :section, 'Section', class: 'control-label' %>
+    <div class="controls">
+      <%= collection_select :story, :section, @sections, :id, :title, class: 'form-control' %>
+    </div>
+</div>
+
+<div class="control-group"> <!-- Subject Field -->
+  <%= label_tag :subject, 'Subject', class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :subject, nil, class: 'form-control', maxlength: 255  %>
+    </div>
+</div>
+
+<div class="control-group"> <!-- Headline Field -->
+  <%= label_tag :headline, 'Headline', class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :headline, nil, class: 'form-control', maxlength: 255  %>
+    </div>
+</div>
+
+<div class="control-group"> <!-- Leadline Field -->
+  <%= label_tag :leadline, 'Leadline', class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :leadline, nil, class: 'form-control', maxlength: 255  %>
+    </div>
+</div>
+
+<div class="control-group"> <!-- Theme Tags Field -->
+  <%= label_tag :theme_tags, 'Theme tags', class: 'control-label' %>
+    <div class="controls">
+      <%= text_area_tag :theme_tags, nil, name: 'theme_tags', cols: 100, rows: 5 %>
+      <p class="help-block small">Press enter after each tag.</p>
+    </div>
+</div>
+
+<%= submit_tag nil, class: 'btn btn-primary' %>
+<%= link_to 'Cancel', stories_path, class: 'btn btn-default' %>
+
+<% end %>
+
+<script type="text/javascript">
+    $('#theme_tags').textext({ plugins : 'tags' });
+</script>
+
+
