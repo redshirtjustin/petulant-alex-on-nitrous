@@ -21,8 +21,8 @@ class NewsController < ApplicationController
   # GET /news/1.json
   def show
     @news_positions = @news.story_elements.order("position ASC")
-    @news_sources = @news.all_citations
-    @news_content = @news.all_elements
+    @news_sources = @news.get_all_citations
+    @news_content = @news.get_all_elements
   end
 
   private

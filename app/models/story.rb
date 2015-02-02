@@ -111,4 +111,4 @@ def make_consistent
   end  
 end
 
-public :all_elements, :all_citations, :active_headline, :active_leadline, :filed_under, :pop, :insert, :push, :append, :replace, :consistent?, :make_consistent
+public :get_all_elements, :get_all_citations, :get_active_headline, :get_active_leadline, :filed_under?, :pop, :insert, :push, :append, :replace, :consistent?, :make_consistent

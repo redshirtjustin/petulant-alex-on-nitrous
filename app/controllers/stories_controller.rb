@@ -21,7 +21,7 @@ class StoriesController < ApplicationController
 
   # GET /stories/1/edit
   def edit
-    @story_content = @story.all_elements
+    @story_content = @story.get_all_elements
     @sections = Section.all
   end
 
