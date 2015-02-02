@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :stories
   resources :headlines
   resources :leadlines
+  resources :quotes
+  resources :atoms
   
   get 'news' => 'news#index'
   get 'news/:id' => 'news#show'

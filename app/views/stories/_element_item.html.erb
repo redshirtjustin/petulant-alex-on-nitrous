@@ -10,39 +10,60 @@
 <% @story_content.each do |element| %>
   <% if (position.element_id == element.id) and (position.element_type == element.class.to_s) %>
 
-  <p>
-  <div class="btn-group" role="group" aria-label="...">
+<div class="row">
+  <div class="col-xs-9">
+    <div class="small"><strong><%= element.topic %></strong></div>
+  </div> <!-- topic -->
+  <div class="col-xs-3"><div class="btn-group btn-group-xs" role="group" aria-label="...">
       <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         Edit <%= position.position.ordinalize %> position <span class="caret"></span>
       </button> <!-- edit button -->
         <ul class="dropdown-menu" role="menu">
           <li><a href="#">Position</a></li>
           <% if element.class.to_s == "Quote" %>
-          <li><%= link_to('Quote', '#', role: 'button', data: {toggle: 'modal', target: '#quoteEditModal', topic: element.topic, content: element.content, theme_tags: element.themes, context_tags: element.contexts, quote: element.quote, quoted: element.quoted_line, quoted_subline: element.quoted_subline }) %></li>
+          <li><%= link_to('Quote', '#', role: 'button', data: {toggle: 'modal', target: '#quoteEditModal', element_id: element.id, topic: element.topic, content: element.content, theme_tags: element.theme_list, context_tags: element.context_list, quote: element.quote, quoted: element.quoted_line, quoted_subline: element.quoted_subline }) %></li>
           <% elsif element.class.to_s == "Atom" %>
-          <li><%= link_to('Content', '#', role: 'button', data: {toggle: 'modal', target: '#contentEditModal', topic: element.topic, content: element.content, theme_tags: element.themes, context_tags: element.contexts}) %></li>  
+          <li><%= link_to('Content', '#', role: 'button', data: {toggle: 'modal', target: '#contentEditModal', element_id: element.id, topic: element.topic, content: element.content, theme_tags: element.theme_list, context_tags: element.context_list}) %></li>  
           <% end %>
         </ul> <!-- drop down menu -->
-      </div> <!-- edit menu -->
-  
-  </p> <!-- position, content edit menu -->
+      </div> <!-- edit menu -->  </div> <!-- edit menu -->
+</div> <!-- header row -->
 
-  <% if element.class.to_s == "Quote" %>
+<div class="row">
+  <div class="col-xs-6 pa-content">
+    <% if element.class.to_s == "Quote" %>
     <blockquote>
         <p><%= element.quote %></p>
         <small><%= element.quoted_line %><br><%= element.quoted_subline %></small>
       </blockquote> <!-- quote -->
-  <% end %>
+    <% end %>
 
-  <p><%= element.content %></p> <!-- content -->
+  <p><%= element.content %></p>
+  </div> <!-- content -->
+  
+  <div class="col-xs-6">
+    <% if element.theme_list.empty? %>
+    <p class="small text-info">No theme tags.</p>
+    <% else %>
+    <p class="small"><span class="small">Themes: </span><span class="text-info"><%= element.theme_list %></span></p>
+    <% end %>
+    <% if element.context_list.empty? %>
+    <p class="small text-info">No context tags.</p>
+    <% else %>
+    <p class="small"><span class="small">Contexts: </span> <span class="text-info"><%= element.context_list %></span></p>
+    <% end %>
+  </div> <!-- tags -->
+</div> <!-- element row -->
 
-  <% if (!position.related_elements.empty?) %>
+<div class="row">
+  <div class="col-xs-12">  <% if (!position.related_elements.empty?) %>
      <% position.related_elements.each do |rel_news| %>
         <p class="pa-source-title">Learn More: 
          <%= link_to rel_news.story.headlines.find(rel_news.story.active_headline_id).headline, controller: "news", action: "show", id: rel_news.story_id  %>
         </p> <!-- related story -->
      <% end %>
-  <% end %> <!-- position related news -->
+  <% end %> <!-- position related news --></div> <!-- related news -->
+</div> <!-- related row-->
 
   <% end %>
 <% end %> <!-- iteration -->

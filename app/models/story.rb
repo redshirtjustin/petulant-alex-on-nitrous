@@ -13,20 +13,18 @@ class Story < ActiveRecord::Base
 end
 
 # Returns an array Atoms and Quotes associated with this Story
-def all_elements
+def get_all_elements
   self.atoms + self.quotes
 end
 
 # Returns and array of Citations of all associated elements
-def all_citations 
+def get_all_citations 
   self.atom_citations + self.quote_citations
 end
 
 # Returns the active Headline line
-def active_headline
-  is_aval = Headline.exists?(self.active_headline_id)
-  
-  if is_aval 
+def get_active_headline  
+  if Headline.exists?(self.active_headline_id)  
     self.headlines.find(self.active_headline_id).headline
   else
     false
@@ -34,10 +32,8 @@ def active_headline
 end
 
 # Returns the active Leadline line
-def active_leadline
-  is_aval = Leadline.exists?(self.active_leadline_id)
-  
-  if is_aval 
+def get_active_leadline  
+  if Leadline.exists?(self.active_leadline_id)
     self.leadlines.find(self.active_leadline_id).leadline
   else
     false
@@ -45,8 +41,74 @@ def active_leadline
 end
 
 # Returns the title of the associated Section
-def filed_under
+def filed_under?
   self.section.title
 end
 
-public :all_elements, :all_citations, :active_headline, :active_leadline, :filed_under
+
+# Story elements helper functions.
+# The story_elements is much like an array.
+# And array we'll call the position stack.
+# Starts from 1 on, 1 being the top,
+#
+# manipulators: pop, insert, push, append, replace,
+# make_consistent
+# utilities: consistent?
+
+# pop - pop off the last position in the stack
+def pop
+end
+
+# insert - insert position somewhere in the stack, and move all subsequent positions down one
+def insert
+end
+
+# push - move down all positions and put a new position at the beginning
+def push
+end
+
+# append - add a position at the end of the stack
+def append
+end
+
+# replace - put a new element into a position without disturbing any other position
+def replace
+end
+
+# consistent? - are there numerical gaps in the order of positions, 1, 2, 4, 5, 10, returns true|false
+def consistent?
+  stack = self.story_elements
+  key = stack.sum(:position)
+  len = stack.length 
+  
+    if len % 2 == 0 # even len
+      checksum = (len / 2) * (1 + len)
+    else
+      checksum = ((len / 2) + 1) * len
+    end 
+
+    if checksum == key
+      return true
+    else
+      return false
+    end
+end
+
+# make_consistent - slide up every position, 1, 2, 4, 5, 10 => 1, 2, 3, 4, 5
+def make_consistent
+  if !self.consistent?
+      stack = self.story_elements.order(position: :asc)
+      order = 1    
+      stack.each do |s|
+        pos = StoryElement.find(s.id)
+        pos.position = order
+        pos.save
+        order += 1
+      end
+    return true
+  else 
+    return true
+  end  
+end
+
+public :all_elements, :all_citations, :active_headline, :active_leadline, :filed_under, :pop, :insert, :push, :append, :replace, :consistent?, :make_consistent

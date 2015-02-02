@@ -93,6 +93,6 @@ class StoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def story_params
-      params[:story].permit(:subject, :mast_url, :thumb_url, :headline, :leadline, :section_id, :storyEditSubject)
+      params[:story].permit(:subject, :mast_url, :thumb_url, :headline, :leadline, :section_id, :storyEditSubject, :element_id)
     end
 end

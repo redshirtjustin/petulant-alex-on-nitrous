@@ -6,48 +6,47 @@
         <span class="modal-title h4">Create a new content postion.</span>
         <button type="button" class="close pull-right" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
       </div><!-- modal-header -->
-      
-      <form action="" method=""><!-- Form Encapsulates body and footer -->
         
         <div class="modal-body">
         <div class="row">
+          <%= form_tag(atoms_path(), method: 'post', id: :newAtomForm) %>
           <div class="col-xs-12">
-            
+             <%= hidden_field_tag('story_id', @story.id) %>
+             <%= hidden_field_tag('element_id', id: 'element_id') %>
+             <%= hidden_field_tag('element_type', 'Quote') %>            
             <div class="form-group">
                 <label for="contentTopic" class="control-label">Topic:</label>
                 <input class="form-control input-sm" type="text" name="contentTopic" id="contentTopic">
-            </div>
+            </div> <!-- contentTopic -->
             
             <div class="form-group">
                 <label for="contentContent" class="control-label">Content:</label>
-                <textarea class="form-control input-sm" name="contentContent" id="contentContent" rows=7></textarea>
+                <textarea class="form-control input-sm" name="contentContent" id="contentContent" rows=7 oninput="charCount('contentContent', 'contentContentCharNum')"></textarea>
                 <div id="contentContentCharNum" class="text-muted small">0 characters</div>
-            </div>
+            </div> <!-- contentContent -->
            
-            <div class="form-group"> <!-- Theme Tags Field -->
+            <div class="form-group">
               <label for="contentThemeTags" class="control-label">Theme Tags:</label>
               <textarea class="form-control" name="contentThemeTags" id="contentThemeTags" rows=2></textarea>
-              <p class="help-block small">Press enter after each tag.</p>
-            </div>
+            </div> <!-- contentThemeTags -->
               
-            <div class="form-group"> <!-- Theme Tags Field -->
+            <div class="form-group">
               <label for="contentContextTags" class="control-label">Context Tags:</label>
               <textarea class="form-control" name="contentContextTags" id="contentContextTags" rows=2></textarea>
-              <p class="help-block small">Press enter after each tag.</p>
-            </div>          
+              <p class="help-block small">Tags are seperated by a comma.</p>
+            </div> <!-- contentContextTags -->
               
-            </div><!-- col-xs-12 -->
+            </div><!-- content form fields -->
           </div><!-- row -->
         </div><!-- modal body -->
         
         <div class="modal-footer">
           <div class="form-group">
-            <button type="button" class="btn btn-warning pull-left" onclick="resetTextArea('contentContent', 'contentContentCharNum')">Reset form</button>
+            <button type="reset" class="btn btn-warning pull-left" onclick="resetTextArea('contentContent', 'contentContentCharNum')">Reset form</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div> <!-- controls -->
         </div> <!-- modal footer -->
-        
       </form> <!-- form -->
       
     </div><!-- modal-content -->
@@ -55,31 +54,5 @@
 </div><!-- modal wrapper -->
 
 <script>
-  // contentContent textarea character counting script
-  $('#contentContent').keyup(function (){
-    var len = $(this).val().length;
-    
-    if (len == 1) {
-      $('#contentContentCharNum').text(len + ' character');
-    } else {
-      $('#contentContentCharNum').text(len + ' characters');
-    }
-    
-  })
-  
-  function resetTextArea (element, displayElement){
-    var elementExists = document.getElementById(element);
-    var displayElementExists = document.getElementById(displayElement);
-    
-    if (elementExists != null) {
-      document.getElementById(element).value = '';
-    }
-    if (displayElementExists != null) {
-      document.getElementById(displayElement).innerHTML = "0 characters"
-    }
-  }  
-   
-
-// $('#theme_tags').textext({ plugins : 'tags' });
-// $('#context_tags').textext({ plugins : 'tags' });
+// counter and counterReset functions are included in the quoteEditModal
 </script>

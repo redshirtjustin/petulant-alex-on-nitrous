@@ -23,7 +23,7 @@
   </div></li></ul> <!-- controls -->
 
 <ul class="list-group">
- <%= render partial: "element_item", collection: @story.story_elements, as: :position %>
+  <%= render partial: "element_item", collection: @story.story_elements.order(position: :asc), as: :position %>
 </ul> <!-- elements/position list group -->
 
 <div class="panel-footer">footer</div>
