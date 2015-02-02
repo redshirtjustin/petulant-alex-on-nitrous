@@ -7,16 +7,16 @@
   </div>  <!-- header -->
 
 <ul class="list-group">
-  <% if @story.active_leadline %>
+  <% if @story.get_active_leadline %>
   <li class="list-group-item active">
-    <p class="pa-content"><%= @story.active_leadline %></p>
+    <p class="pa-content"><%= @story.get_active_leadline %></p>
   
     <p><div class="collapse" id="activeLeadlineEditForm">
     <div class="well well-sm">
-      <%= form_tag(leadline_path(@story.active_leadline_id), method: 'patch') do %>
+      <%= form_tag(leadline_path(@story.get_active_leadline_id), method: 'patch') do %>
       <%= hidden_field_tag('story_id', @story.id) %>
       <div class="form-group" role="group">
-        <%= text_area_tag(:leadline, @story.active_leadline, rows: 4, class: 'form-control input-sm') %>
+        <%= text_area_tag(:leadline, @story.get_active_leadline, rows: 4, class: 'form-control input-sm') %>
       </div> <!-- textarea -->
       <div class="btn-group btn-group-xs" role="group" aria-label="...">
         <%= link_to('Close', '#activeLeadlineEditForm', class: 'btn btn-default', role: 'button', data: {toggle: 'collapse'}, aria_expanded: false, aria_control: 'activeLeadlineEditForm') %>
@@ -25,7 +25,7 @@
     </div> <!-- well -->
   </div></p> <!-- collapse -->
 
-    <p><%= form_tag(leadline_path(@story.active_leadline_id), method: 'delete') do %>
+    <p><%= form_tag(leadline_path(@story.get_active_leadline_id), method: 'delete') do %>
     <%= hidden_field_tag('story_id', @story.id) %>
     <div class="btn-group btn-group-xs" role="group" aria-label="...">
         <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#activeLeadlineEditForm"><i class="fa fa-pencil-square-o"></i> Edit</button>

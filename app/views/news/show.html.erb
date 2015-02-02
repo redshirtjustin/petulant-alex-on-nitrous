@@ -1,11 +1,11 @@
 <% content_for :news_story do %>
 <div class="page-header text-center">
   <div><%= image_tag @news.mast_url, class: "pa-img-masthead img-responsive" %></div>
-  <div class="pa-page-header-headline"><%= @news.active_headline %></div>
-  <span class="pa-page-header-section-line"><%= @news.filed_under %> - <%= time_ago_in_words(@news.updated_at)%> ago</span>
+  <div class="pa-page-header-headline"><%= @news.get_active_headline %></div>
+  <span class="pa-page-header-section-line"><%= @news.filed_under? %> - <%= time_ago_in_words(@news.updated_at)%> ago</span>
 </div><div class="pa-elements-container">
   <div class="pa-content">
-    <p><%= @news.active_leadline %></p></div>
+    <p><%= @news.get_active_leadline %></p></div>
   <hr>
   <%= render partial: "element", collection: @news_positions, as: :position %> <!-- Pass a collection of StoryElement class -->
 </div>
