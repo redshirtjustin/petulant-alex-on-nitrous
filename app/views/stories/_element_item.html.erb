@@ -1,0 +1,51 @@
+ 
+<% if position.active %>
+<!-- active postion -->
+<li class="list-group-item"> 
+<% elsif !position.active %>
+<!-- inactive position -->
+<li class="list-group-item list-group-item-warning"> 
+<% end %>
+  
+<% @story_content.each do |element| %>
+  <% if (position.element_id == element.id) and (position.element_type == element.class.to_s) %>
+
+  <p>
+  <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Edit <%= position.position.ordinalize %> position <span class="caret"></span>
+      </button> <!-- edit button -->
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Position</a></li>
+          <% if element.class.to_s == "Quote" %>
+          <li><%= link_to('Quote', '#', role: 'button', data: {toggle: 'modal', target: '#quoteEditModal', topic: element.topic, content: element.content, theme_tags: element.themes, context_tags: element.contexts, quote: element.quote, quoted: element.quoted_line, quoted_subline: element.quoted_subline }) %></li>
+          <% elsif element.class.to_s == "Atom" %>
+          <li><%= link_to('Content', '#', role: 'button', data: {toggle: 'modal', target: '#contentEditModal', topic: element.topic, content: element.content, theme_tags: element.themes, context_tags: element.contexts}) %></li>  
+          <% end %>
+        </ul> <!-- drop down menu -->
+      </div> <!-- edit menu -->
+  
+  </p> <!-- position, content edit menu -->
+
+  <% if element.class.to_s == "Quote" %>
+    <blockquote>
+        <p><%= element.quote %></p>
+        <small><%= element.quoted_line %><br><%= element.quoted_subline %></small>
+      </blockquote> <!-- quote -->
+  <% end %>
+
+  <p><%= element.content %></p> <!-- content -->
+
+  <% if (!position.related_elements.empty?) %>
+     <% position.related_elements.each do |rel_news| %>
+        <p class="pa-source-title">Learn More: 
+         <%= link_to rel_news.story.headlines.find(rel_news.story.active_headline_id).headline, controller: "news", action: "show", id: rel_news.story_id  %>
+        </p> <!-- related story -->
+     <% end %>
+  <% end %> <!-- position related news -->
+
+  <% end %>
+<% end %> <!-- iteration -->
+</li> <!-- element item -->
+
+  

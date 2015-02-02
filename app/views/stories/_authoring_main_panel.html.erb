@@ -1,16 +1,24 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <p><h3 class="panel-title">Filed under: <mark><%= @story.filed_under %></mark></h3></p>
-    <p>Tagged: <span class="text-info"><%= @story.theme_list %></span></p>
-  </div>
+    <p><h3 class="panel-title">Filed under: 
+      <mark><%= @story.filed_under %></mark>
+    </h3></p> <!-- section filing -->
+    <p>Theme Tagged: 
+      <span class="text-info"><%= @story.theme_list %></span>
+    </p> <!-- tags -->
+  </div> <!-- header -->
   
   <div class="panel-body">
-    <div class="center-block text-center"><p class="h2"><%= @story.subject %></p>
-      <p class="small">Created: <mark><%= time_ago_in_words(@story.created_at) %> ago</mark> | Updated: <mark><%= time_ago_in_words(@story.updated_at) %> ago</mark></p>
+    <div class="center-block text-center">
+      <p class="h2"><%= @story.subject %></p> <!-- story subject -->
+      <p class="small">Created: 
+        <mark><%= time_ago_in_words(@story.created_at) %> ago</mark> 
+        | Updated: <mark><%= time_ago_in_words(@story.updated_at) %> ago</mark>
+      </p> <!-- age, updated -->
       
     <p><div class="collapse" id="storyEditForm">
-      <%= form_tag(story_url(@story), method: 'patch') do %>
-        <div class="well well-sm form-horizontal">
+       <%= form_tag(story_url(@story), method: 'patch') do %>
+         <div class="well well-sm form-horizontal">
           
             <div class="form-group"> 
                 <label for="storyEditSubject" class="control-label col-sm-2">Subject:</label>
@@ -41,13 +49,13 @@
               </div>
           </div>
         </div><!-- well -->
-          <% end %>      
-      </div></p> <!-- Collapse -->
+       <% end %>      
+       </div></p> <!-- Collapse -->
     
-      <p><div class="btn-group btn-group-xs" role="group" aria-label="..."><button type="button" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#storyEditForm"><i class="fa fa-pencil-square-o"></i> Edit</button></div></p>
-    </div>
-  </div>
-</div>
+      <p><div class="btn-group btn-group-xs" role="group" aria-label="..."><button type="button" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#storyEditForm"><i class="fa fa-pencil-square-o"></i> Edit</button></div></p> 
+    </div> <!-- masthead -->
+  </div> <!-- body -->
+</div> <!-- main top panel -->
 
 <script>
 

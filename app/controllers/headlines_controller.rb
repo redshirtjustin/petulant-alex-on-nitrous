@@ -3,11 +3,28 @@ class HeadlinesController < ApplicationController
 
   def edit
   end
+  
+  def create
+    @headline = Headline.new(headline: params[:headline], story_id: params[:story_id])
+    story = Story.find(params[:story_id])   
+    
+    respond_to do |format|
+      if @headline.save
+        story.active_headline_id = @headline.id
+        if story.save
+          format.html { redirect_to edit_story_url(params[:story_id]), notice: 'Headline successfully created and made active.' }
+        else
+          format.html { redirect_to edit_story_url(params[:story_id]), notice: 'Headline successfully created but not active.' }
+        end
+      else
+        format.html { render :edit }
+      end
+    end
+  end
 
   def update
-    old_headline = @headline.headline
+    message = "Headline was successfully updated. CHANGED FROM: " + @headline.headline + " TO: " + params[:headline]
     @headline.headline = params[:headline]
-    message = "Headline was successfully updated. CHANGED FROM: " + old_headline.to_s + " TO: " + params[:headline].to_s 
     
     respond_to do |format|
       if @headline.save
@@ -18,16 +35,31 @@ class HeadlinesController < ApplicationController
     end
   end
 
-  # DELETE /stories/1
-  # DELETE /stories/1.json
   def destroy
+    message = "Headline: " + @headline.headline.upcase + " was successfully deleted."
+    
     @headline.destroy
+    
     respond_to do |format|
-      format.html { redirect_to stories_url, notice: 'Story was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to edit_story_url( params[:story_id] ), notice: message }
     end
   end
-
+  
+  def make_headline_active    
+    story = Story.find(params[:story_id])
+    story.active_headline_id = params[:id]
+    headline = Headline.find(params[:id]).headline
+    message = headline.upcase + " is now the active headline."
+    
+    respond_to do |format|
+      if story.save
+        format.html { redirect_to edit_story_url(params[:story_id]), notice: message }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_headline

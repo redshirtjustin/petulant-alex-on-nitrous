@@ -24,12 +24,24 @@ end
 
 # Returns the active Headline line
 def active_headline
-  self.headlines.find(self.active_headline_id).headline
+  is_aval = Headline.exists?(self.active_headline_id)
+  
+  if is_aval 
+    self.headlines.find(self.active_headline_id).headline
+  else
+    false
+  end
 end
 
 # Returns the active Leadline line
 def active_leadline
-  self.leadlines.find(self.active_leadline_id).leadline
+  is_aval = Leadline.exists?(self.active_leadline_id)
+  
+  if is_aval 
+    self.leadlines.find(self.active_leadline_id).leadline
+  else
+    false
+  end
 end
 
 # Returns the title of the associated Section
